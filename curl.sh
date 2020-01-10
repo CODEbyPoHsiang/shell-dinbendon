@@ -3,7 +3,7 @@
 result=$(curl -s  https://dinbendon.net/do/login  -c cookies | grep -w "6em"|sed 's/<[^<]*>//g'|sed 's/=//g'|bc )
 #posturl獲取提交時變動網址串變數
 posturl=$(curl -s  https://dinbendon.net/do/login | grep -w 'form action="'|grep -oP '(\/do\/;jsessionid=[0-9A-F]+(.*?)")' |sed 's/"//g')
-#準備post資料，要攜帶以存的cookie模擬post
+#準備post資料，要攜帶以存的cookie模擬post，$result跟$posturl兩個變數一併帶入
 curl -b cookies -d "signInPanel_signInForm%3Ahf%3A0=&username=guest&password=guest&result=$result&submit=%E7%99%BB%E5%85%A5" -X POST  "https://dinbendon.net$posturl"
 
 echo "爬蟲開始..." 
